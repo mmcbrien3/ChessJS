@@ -35,6 +35,6 @@ let pieces = dd.board.getAllPieces();
 pieces.forEach(piece => {
 	let posString = ""
 	piece.getMovablePositions(dd.board).forEach(pos => posString += `x:${pos.x}, y:${pos.y} `);
-	console.log(`${piece.getStringRepresentation()}: ${posString}`)
+	console.log(`${piece.getStringRepresentation()} (${piece.position.x}, ${piece.position.y}): ${posString}`)
 
 	});

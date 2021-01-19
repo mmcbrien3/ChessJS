@@ -88,7 +88,7 @@ export class Board {
 		this.addPiece(new Rook({x:7, y:0}, Colors.BLACK));
 
 		for (let i = 0; i < 8; i++) {
-			this.addPiece(new Pawn({x: i, y:1}), Colors.BLACK);
+			this.addPiece(new Pawn({x: i, y:1}, Colors.BLACK));
 		}
 
 		this.addPiece(new Rook({x:0, y:7}, Colors.WHITE));
@@ -101,7 +101,7 @@ export class Board {
 		this.addPiece(new Rook({x:7, y:7}, Colors.WHITE));
 
 		for (let i = 0; i < 8; i++) {
-			this.addPiece(new Pawn({x: i, y:6}), Colors.WHITE);
+			this.addPiece(new Pawn({x: i, y:6}, Colors.WHITE));
 		}
 	}
 }

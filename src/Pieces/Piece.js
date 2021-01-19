@@ -26,7 +26,7 @@ export class Piece {
 }
 
 export const Colors = Object.freeze({
-    WHITE:   Symbol("white"),
+    WHITE:  Symbol("white"),
     BLACK:  Symbol("black")
 });
 
