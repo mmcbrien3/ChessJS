@@ -32,7 +32,13 @@ export class Board {
 		return pieces;
 	}
 
-	addPiece(piece) {
+	movePiece(piece, newPosition) {
+		this.grid[piece.position.y][piece.position.x] = null;
+		piece.moveTo(newPosition);
+		this.placePiece(piece);
+	}
+
+	placePiece(piece) {
 		this.grid[piece.position.y][piece.position.x] = piece;
 	}
 
@@ -78,30 +84,30 @@ export class Board {
 	}
 
 	setupAllPieces() {
-		this.addPiece(new Rook({x:0, y:0}, Colors.BLACK));
-		this.addPiece(new Knight({x:1, y:0}, Colors.BLACK));
-		this.addPiece(new Bishop({x:2, y:0}, Colors.BLACK));
-		this.addPiece(new Queen({x:3, y:0}, Colors.BLACK));
-		this.addPiece(new King({x:4, y:0}, Colors.BLACK));
-		this.addPiece(new Bishop({x:5, y:0}, Colors.BLACK));
-		this.addPiece(new Knight({x:6, y:0}, Colors.BLACK));
-		this.addPiece(new Rook({x:7, y:0}, Colors.BLACK));
+		this.placePiece(new Rook({x:0, y:0}, Colors.BLACK));
+		this.placePiece(new Knight({x:1, y:0}, Colors.BLACK));
+		this.placePiece(new Bishop({x:2, y:0}, Colors.BLACK));
+		this.placePiece(new Queen({x:3, y:0}, Colors.BLACK));
+		this.placePiece(new King({x:4, y:0}, Colors.BLACK));
+		this.placePiece(new Bishop({x:5, y:0}, Colors.BLACK));
+		this.placePiece(new Knight({x:6, y:0}, Colors.BLACK));
+		this.placePiece(new Rook({x:7, y:0}, Colors.BLACK));
 
 		for (let i = 0; i < 8; i++) {
-			this.addPiece(new Pawn({x: i, y:1}, Colors.BLACK));
+			this.placePiece(new Pawn({x: i, y:1}, Colors.BLACK));
 		}
 
-		this.addPiece(new Rook({x:0, y:7}, Colors.WHITE));
-		this.addPiece(new Knight({x:1, y:7}, Colors.WHITE));
-		this.addPiece(new Bishop({x:2, y:7}, Colors.WHITE));
-		this.addPiece(new Queen({x:3, y:7}, Colors.WHITE));
-		this.addPiece(new King({x:4, y:7}, Colors.WHITE));
-		this.addPiece(new Bishop({x:5, y:7}, Colors.WHITE));
-		this.addPiece(new Knight({x:6, y:7}, Colors.WHITE));
-		this.addPiece(new Rook({x:7, y:7}, Colors.WHITE));
+		this.placePiece(new Rook({x:0, y:7}, Colors.WHITE));
+		this.placePiece(new Knight({x:1, y:7}, Colors.WHITE));
+		this.placePiece(new Bishop({x:2, y:7}, Colors.WHITE));
+		this.placePiece(new Queen({x:3, y:7}, Colors.WHITE));
+		this.placePiece(new King({x:4, y:7}, Colors.WHITE));
+		this.placePiece(new Bishop({x:5, y:7}, Colors.WHITE));
+		this.placePiece(new Knight({x:6, y:7}, Colors.WHITE));
+		this.placePiece(new Rook({x:7, y:7}, Colors.WHITE));
 
 		for (let i = 0; i < 8; i++) {
-			this.addPiece(new Pawn({x: i, y:6}, Colors.WHITE));
+			this.placePiece(new Pawn({x: i, y:6}, Colors.WHITE));
 		}
 	}
 }

@@ -20,6 +20,14 @@ export class Pawn extends Piece {
 					ps.push(possiblePosition);
 				}	
 			}
+			possiblePosition = {x: this.position.x + 1, y: this.position.y + 1};
+			if (board.isPositionOnBoard(possiblePosition) && board.isPositionOccupiedByFoe(this.color, possiblePosition)) {
+				ps.push(possiblePosition);
+			}
+			possiblePosition = {x: this.position.x - 1, y: this.position.y + 1};
+			if (board.isPositionOnBoard(possiblePosition) && board.isPositionOccupiedByFoe(this.color, possiblePosition)) {
+				ps.push(possiblePosition);
+			}
 		} else {
 			possiblePosition = {x: this.position.x, y: this.position.y - 1};
 			if (this.isPositionFree(board, possiblePosition)) {
@@ -30,6 +38,14 @@ export class Pawn extends Piece {
 				if (this.isPositionFree(board, possiblePosition)) {
 					ps.push(possiblePosition);
 				}	
+			}
+			possiblePosition = {x: this.position.x + 1, y: this.position.y - 1};
+			if (board.isPositionOnBoard(possiblePosition) && board.isPositionOccupiedByFoe(this.color, possiblePosition)) {
+				ps.push(possiblePosition);
+			}
+			possiblePosition = {x: this.position.x - 1, y: this.position.y - 1};
+			if (board.isPositionOnBoard(possiblePosition) && board.isPositionOccupiedByFoe(this.color, possiblePosition)) {
+				ps.push(possiblePosition);
 			}
 		}
 		return ps;
