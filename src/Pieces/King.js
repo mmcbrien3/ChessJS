@@ -1,4 +1,4 @@
-import {Piece} from './Piece.js'
+import {Piece, Colors} from './Piece.js'
 
 export class King extends Piece {
 	constructor(position, color) {
@@ -49,7 +49,8 @@ export class King extends Piece {
 		let watchedPositions = this.getWatchedPositions(board);
 		let movablePositions = [];
 		for (let i = 0; i < watchedPositions.length; i++) {
-			if (!board.isPositionOccupiedByAlly(this.color, watchedPositions[i])) {
+			// check that position isn't held by ally and doesn't cause check
+			if (!board.isPositionOccupiedByAlly(this.color, watchedPositions[i]) && !board.isMyKingInCheckWithMove(this, watchedPositions[i])) {
 				movablePositions.push(watchedPositions[i]);
 			}
 		}

@@ -53,6 +53,17 @@ export class Board {
 		return this.getPieceAtPosition(position) != null;
 	}
 
+	getAllPiecesOfColor(color) {
+		let pieces = this.getAllPieces();
+		let piecesOfColor = [];
+		pieces.forEach(p => {
+			if (p.color === color) {
+				piecesOfColor.push(p);
+			}
+		});
+		return piecesOfColor;
+	}
+
 	isPositionOccupiedByAlly(myColor, position) {
 		let otherPiece = this.getPieceAtPosition(position);
 		if (otherPiece == null) {
@@ -81,6 +92,52 @@ export class Board {
 
 	isPositionOnBoard(position) {
 		return position.x < NUM_FILES && position.x >= 0 && position.y < NUM_RANKS && position.y >= 0;
+	}
+
+	isMyKingInCheckWithMove(piece, newPosition) {
+		let isKingInCheck = false;
+
+		let currentPosition = piece.position;
+		let pieceAtNewPosition = this.getPieceAtPosition(newPosition);
+
+		let foeColor = Colors.WHITE;
+		if (piece.color === Colors.WHITE) {
+			foeColor = Colors.BLACK;
+		}
+		
+		this.grid[piece.position.y][piece.position.x] = null;
+		piece.position = newPosition;
+		this.placePiece(piece);
+
+		let foePieces = this.getAllPiecesOfColor(foeColor);
+		let positionsWatchedByFoes = [];
+		foePieces.forEach(piece => positionsWatchedByFoes.push(...piece.getWatchedPositions(this)));
+
+		let myKing = this.getKingOfColor(piece.color);
+
+		if (positionsWatchedByFoes.some(item => JSON.stringify(item) === JSON.stringify(myKing.position))) {
+			isKingInCheck = true;
+		}
+
+		piece.position = currentPosition;
+		this.grid[piece.position.y][piece.position.x] = piece;
+		if (pieceAtNewPosition != null) {
+			this.placePiece(pieceAtNewPosition);
+		} else {
+			this.grid[newPosition.y][newPosition.x] = null;
+		}
+
+		return isKingInCheck;
+	}
+
+	getKingOfColor(color) {
+		let piecesOfColor = this.getAllPiecesOfColor(color);
+		for (let i = 0; i < piecesOfColor.length; i++) {
+			if (piecesOfColor[i].getStringRepresentation() === "K") {
+				return piecesOfColor[i];
+			}
+		}
+		return null;
 	}
 
 	setupAllPieces() {

@@ -13,7 +13,7 @@ export class GameAdministrator {
 
 	requestNextMoveFromCurrentPlayer() {
 		let pieceToMove = null;
-		let validMoves = null;
+		let validMoves = [];
 		do {
 			let xPos = parseInt(prompt("Give x position of piece to move "));
 			let yPos = parseInt(prompt("Give y position of piece to move "));
@@ -22,7 +22,7 @@ export class GameAdministrator {
 				continue;
 			}
 			validMoves = pieceToMove.getMovablePositions(this.board);
-		} while (validMoves.length == 0 || pieceToMove.color !== this.currentPlayerColor);
+		} while (pieceToMove == null || validMoves.length == 0 || pieceToMove.color !== this.currentPlayerColor);
 
 		console.log(`Going to move:`);
 		console.log(pieceToMove);

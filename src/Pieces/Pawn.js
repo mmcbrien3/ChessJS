@@ -57,25 +57,27 @@ export class Pawn extends Piece {
 
 	getWatchedPositions(board) {
 		let ps = [];
+		let possiblePosition = null;
 		if (this.color === Colors.BLACK) {
-			possiblePosition = possiblePosition = {x: this.position.x + 1, y: this.position.y + 1};
+			possiblePosition = {x: this.position.x + 1, y: this.position.y + 1};
 			if (board.isPositionOnBoard(possiblePosition)) {
 				ps.push(possiblePosition);
 			}
-			possiblePosition = possiblePosition = {x: this.position.x - 1, y: this.position.y + 1};
+			possiblePosition = {x: this.position.x - 1, y: this.position.y + 1};
 			if (board.isPositionOnBoard(possiblePosition)) {
 				ps.push(possiblePosition);
 			}
 		} else {
-			possiblePosition = possiblePosition = {x: this.position.x + 1, y: this.position.y - 1};
+			possiblePosition = {x: this.position.x + 1, y: this.position.y - 1};
 			if (board.isPositionOnBoard(possiblePosition)) {
 				ps.push(possiblePosition);
 			}
-			possiblePosition = possiblePosition = {x: this.position.x - 1, y: this.position.y - 1};
+			possiblePosition = {x: this.position.x - 1, y: this.position.y - 1};
 			if (board.isPositionOnBoard(possiblePosition)) {
 				ps.push(possiblePosition);
 			}
 		}
+		return ps;
 	}
 
 	getStringRepresentation() {
