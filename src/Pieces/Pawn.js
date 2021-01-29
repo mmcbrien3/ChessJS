@@ -1,5 +1,4 @@
 import {Piece, Colors} from './Piece.js'
-import {Board} from '../Board.js'
 
 export class Pawn extends Piece {
 	constructor(position, color) {

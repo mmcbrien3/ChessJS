@@ -1,5 +1,5 @@
 import {Piece} from './Piece.js';
-import {Board, NUM_RANKS, NUM_FILES} from '../Board.js';
+import {NUM_RANKS, NUM_FILES} from '../Board.js';
 
 export class Queen extends Piece {
 	constructor(position, color) {

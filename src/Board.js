@@ -1,10 +1,4 @@
-import {Piece, Colors} from './Pieces/Piece.js';
-import {Pawn} from './Pieces/Pawn.js';
-import {Rook} from './Pieces/Rook.js';
-import {Knight} from './Pieces/Knight.js';
-import {Bishop} from './Pieces/Bishop.js';
-import {Queen} from './Pieces/Queen.js';
-import {King} from './Pieces/King.js';
+import {Colors} from './Pieces/Piece.js';
 
 export const NUM_RANKS = 8;
 export const NUM_FILES = 8;

@@ -1,4 +1,3 @@
-import {Board} from '../Board.js';
 
 export class Piece {
 	constructor(position, color) {

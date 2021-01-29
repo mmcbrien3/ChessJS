@@ -7,7 +7,7 @@ export class GameAdministrator {
 	
 	constructor() {
 		this.board = new Board();
-		this.board.setupAllPieces();
+		this.setupAllPieces();
 		this.currentPlayerColor = Colors.WHITE;
 	}
 
@@ -94,6 +94,34 @@ export class GameAdministrator {
 			piece.getMovablePositions(this.board).forEach(pos => posString += `x:${pos.x}, y:${pos.y} `);
 			console.log(`${piece.getStringRepresentation()} [${piece.color.toString()}] (${piece.position.x}, ${piece.position.y}): ${posString}`)
 		});
+	}
+
+	setupAllPieces() {
+		this.board.placePiece(new Rook({x:0, y:0}, Colors.BLACK));
+		this.board.placePiece(new Knight({x:1, y:0}, Colors.BLACK));
+		this.board.placePiece(new Bishop({x:2, y:0}, Colors.BLACK));
+		this.board.placePiece(new Queen({x:3, y:0}, Colors.BLACK));
+		this.board.placePiece(new King({x:4, y:0}, Colors.BLACK));
+		this.board.placePiece(new Bishop({x:5, y:0}, Colors.BLACK));
+		this.board.placePiece(new Knight({x:6, y:0}, Colors.BLACK));
+		this.board.placePiece(new Rook({x:7, y:0}, Colors.BLACK));
+
+		for (let i = 0; i < 8; i++) {
+			this.board.placePiece(new Pawn({x: i, y:1}, Colors.BLACK));
+		}
+
+		this.board.placePiece(new Rook({x:0, y:7}, Colors.WHITE));
+		this.board.placePiece(new Knight({x:1, y:7}, Colors.WHITE));
+		this.board.placePiece(new Bishop({x:2, y:7}, Colors.WHITE));
+		this.board.placePiece(new Queen({x:3, y:7}, Colors.WHITE));
+		this.board.placePiece(new King({x:4, y:7}, Colors.WHITE));
+		this.board.placePiece(new Bishop({x:5, y:7}, Colors.WHITE));
+		this.board.placePiece(new Knight({x:6, y:7}, Colors.WHITE));
+		this.board.placePiece(new Rook({x:7, y:7}, Colors.WHITE));
+
+		for (let i = 0; i < 8; i++) {
+			this.board.placePiece(new Pawn({x: i, y:6}, Colors.WHITE));
+		}
 	}
 }
 
