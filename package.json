@@ -1,0 +1,22 @@
+{
+  "name": "ChessJS",
+  "version": "1.0.0",
+  "description": "Chess in the browser",
+  "main": "GameAdministrator.js",
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "start": "node -r esm ./src/GameAdministrator.js"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "esm": "3.2.0",
+    "prompt-sync": "^4.2.0"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
+  },
+  "jest": {
+    "transform": {}
+  }
+}

@@ -1,14 +1,9 @@
-import {Piece, Colors} from './Pieces/Piece.js';
-import {Pawn} from './Pieces/Pawn.js';
-import {Rook} from './Pieces/Rook.js';
-import {Knight} from './Pieces/Knight.js';
-import {Bishop} from './Pieces/Bishop.js';
-import {Queen} from './Pieces/Queen.js';
-import {King} from './Pieces/King.js';
+import {Colors} from './Pieces/Piece.js';
 
 export const NUM_RANKS = 8;
 export const NUM_FILES = 8;
 export class Board {
+	
 	constructor() {
 		this.grid = [];
 		for (var y = 0; y < NUM_RANKS; y++) {
@@ -140,31 +135,5 @@ export class Board {
 		return null;
 	}
 
-	setupAllPieces() {
-		this.placePiece(new Rook({x:0, y:0}, Colors.BLACK));
-		this.placePiece(new Knight({x:1, y:0}, Colors.BLACK));
-		this.placePiece(new Bishop({x:2, y:0}, Colors.BLACK));
-		this.placePiece(new Queen({x:3, y:0}, Colors.BLACK));
-		this.placePiece(new King({x:4, y:0}, Colors.BLACK));
-		this.placePiece(new Bishop({x:5, y:0}, Colors.BLACK));
-		this.placePiece(new Knight({x:6, y:0}, Colors.BLACK));
-		this.placePiece(new Rook({x:7, y:0}, Colors.BLACK));
-
-		for (let i = 0; i < 8; i++) {
-			this.placePiece(new Pawn({x: i, y:1}, Colors.BLACK));
-		}
-
-		this.placePiece(new Rook({x:0, y:7}, Colors.WHITE));
-		this.placePiece(new Knight({x:1, y:7}, Colors.WHITE));
-		this.placePiece(new Bishop({x:2, y:7}, Colors.WHITE));
-		this.placePiece(new Queen({x:3, y:7}, Colors.WHITE));
-		this.placePiece(new King({x:4, y:7}, Colors.WHITE));
-		this.placePiece(new Bishop({x:5, y:7}, Colors.WHITE));
-		this.placePiece(new Knight({x:6, y:7}, Colors.WHITE));
-		this.placePiece(new Rook({x:7, y:7}, Colors.WHITE));
-
-		for (let i = 0; i < 8; i++) {
-			this.placePiece(new Pawn({x: i, y:6}, Colors.WHITE));
-		}
-	}
+	
 }
