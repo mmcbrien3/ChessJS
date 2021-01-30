@@ -15,7 +15,7 @@ export class Pawn extends Piece {
 			}
 			if (!this.hasMoved) {
 				possiblePosition = {x: this.position.x, y: this.position.y + 2};
-				if (this.isPositionFree(board, possiblePosition)) {
+				if (ps.length > 0 && this.isPositionFree(board, possiblePosition)) {
 					ps.push(possiblePosition);
 				}	
 			}
@@ -34,7 +34,7 @@ export class Pawn extends Piece {
 			}
 			if (!this.hasMoved) {
 				possiblePosition = {x: this.position.x, y: this.position.y - 2};
-				if (this.isPositionFree(board, possiblePosition)) {
+				if (ps.length > 0 && this.isPositionFree(board, possiblePosition)) {
 					ps.push(possiblePosition);
 				}	
 			}
