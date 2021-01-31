@@ -103,6 +103,3 @@ export class GameAdministrator {
 		}
 	}
 }
-
-let ga = new GameAdministrator();
-ga.runGame();

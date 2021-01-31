@@ -40,7 +40,9 @@ export class GameAdministratorNode extends GameAdministrator {
 
 		this.makeMove(pieceToMove, positionToMoveTo);
 	}
+
+
 }
 
-let ga = new GameAdministrator();
+let ga = new GameAdministratorNode();
 ga.runGame();

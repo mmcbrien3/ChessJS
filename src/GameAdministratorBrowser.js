@@ -43,5 +43,5 @@ export class GameAdministratorBrowser extends GameAdministrator {
 
 }
 
-let ga = new GameAdministrator();
+let ga = new GameAdministratorBrowser();
 ga.runGame();
