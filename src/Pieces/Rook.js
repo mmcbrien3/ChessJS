@@ -65,6 +65,8 @@ export class Rook extends Piece {
 				movablePositions.push(watchedPositions[i]);
 			}
 		}
+		movablePositions = this.filterOutPinnedPositions(movablePositions, board);
+
 		return movablePositions;
 	}
 

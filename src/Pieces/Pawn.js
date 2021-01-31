@@ -48,13 +48,8 @@ export class Pawn extends Piece {
 			}
 		}
 
-		let finalPs = [];
-		ps.forEach(pos => {
-			if (!board.isMyKingInCheckWithMove(this, pos)) {
-				finalPs.push(pos);
-			}
-		})
-		return finalPs;
+		ps = this.filterOutPinnedPositions(ps, board);
+		return ps;
 	}
 
 	isPositionFree(board, position) {

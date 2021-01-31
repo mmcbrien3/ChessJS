@@ -22,6 +22,16 @@ export class Piece {
 	getStringRepresentation() {
 		return "U";
 	}
+
+	filterOutPinnedPositions(positions, board) {
+		let finalPositions = [];
+		positions.forEach(pos => {
+			if (!board.isMyKingInCheckWithMove(this, pos)) {
+				finalPositions.push(pos);
+			}
+		})
+		return finalPositions;
+	}
 }
 
 export const Colors = Object.freeze({

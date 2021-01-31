@@ -81,7 +81,7 @@ describe('Pawn tests', () => {
         expect(actualMovesWhite).toEqual(expectedMovesWhite);
     })
 
-    it('Test cannot put own king in check', () => {
+    it('Test pin', () => {
         //TODO: figure out mocking
         let b = new Board();
 
