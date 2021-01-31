@@ -91,7 +91,7 @@ export class Board {
 
 	isMyKingInCheckWithMove(piece, newPosition) {
 		let isKingInCheck = false;
-
+		let kingPos = this.getKingPosOfColor(piece.color);
 		let currentPosition = piece.position;
 		let pieceAtNewPosition = this.getPieceAtPosition(newPosition);
 
@@ -108,9 +108,7 @@ export class Board {
 		let positionsWatchedByFoes = [];
 		foePieces.forEach(piece => positionsWatchedByFoes.push(...piece.getWatchedPositions(this)));
 
-		let myKing = this.getKingOfColor(piece.color);
-
-		if (positionsWatchedByFoes.some(item => JSON.stringify(item) === JSON.stringify(myKing.position))) {
+		if (positionsWatchedByFoes.some(item => JSON.stringify(item) === JSON.stringify(kingPos))) {
 			isKingInCheck = true;
 		}
 
@@ -125,14 +123,15 @@ export class Board {
 		return isKingInCheck;
 	}
 
-	getKingOfColor(color) {
+	getKingPosOfColor(color) {
+
 		let piecesOfColor = this.getAllPiecesOfColor(color);
+
 		for (let i = 0; i < piecesOfColor.length; i++) {
 			if (piecesOfColor[i].getStringRepresentation() === "K") {
-				return piecesOfColor[i];
+				return piecesOfColor[i].position;
 			}
 		}
-		return null;
 	}
 
 	

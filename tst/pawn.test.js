@@ -1,6 +1,12 @@
 import { Pawn } from '../src/Pieces/Pawn.js';
 import { Colors } from '../src/Pieces/Piece.js';
+import { Rook }  from '../src/Pieces/Rook.js';
+import { King } from '../src/Pieces/King.js'
 import { Board } from '../src/Board.js';
+import { jest } from '@jest/globals'
+
+jest.mock('../src/Pieces/Rook.js', () => jest.fn());
+
 
 describe('Pawn tests', () => {
     it('Test has not moved', () => {
@@ -73,5 +79,21 @@ describe('Pawn tests', () => {
 
         expect(actualMovesBlack).toEqual(expectedMovesBlack);
         expect(actualMovesWhite).toEqual(expectedMovesWhite);
+    })
+
+    it('Test cannot put own king in check', () => {
+        //TODO: figure out mocking
+        let b = new Board();
+
+        let pWhite = new Pawn({x: 1, y: 6}, Colors.WHITE);
+        let kWhite = new King({x: 0, y: 6}, Colors.WHITE);
+        let rBlack = new Rook({x: 2, y: 6}, Colors.BLACK);
+        b.placePiece(kWhite);
+        b.placePiece(pWhite);
+        b.placePiece(rBlack);
+
+        let actualPawnMoves = pWhite.getMovablePositions(b);
+        let expectedPawnMoves = [];
+        expect(actualPawnMoves).toEqual(expectedPawnMoves);
     })
 })
