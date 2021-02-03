@@ -91,7 +91,6 @@ export class Board {
 
 	isMyKingInCheckWithMove(piece, newPosition) {
 		let isKingInCheck = false;
-		let kingPos = this.getKingPosOfColor(piece.color);
 		let currentPosition = piece.position;
 		let pieceAtNewPosition = this.getPieceAtPosition(newPosition);
 
@@ -103,6 +102,7 @@ export class Board {
 		this.grid[piece.position.y][piece.position.x] = null;
 		piece.position = newPosition;
 		this.placePiece(piece);
+		let kingPos = this.getKingPosOfColor(piece.color);
 
 		let foePieces = this.getAllPiecesOfColor(foeColor);
 		let positionsWatchedByFoes = [];
