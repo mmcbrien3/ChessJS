@@ -47,13 +47,9 @@ export class King extends Piece {
 
 	getMovablePositions(board) {
 		let watchedPositions = this.getWatchedPositions(board);
-		let movablePositions = [];
-		for (let i = 0; i < watchedPositions.length; i++) {
-			// check that position isn't held by ally and doesn't cause check
-			if (!board.isPositionOccupiedByAlly(this.color, watchedPositions[i]) && !board.isMyKingInCheckWithMove(this, watchedPositions[i])) {
-				movablePositions.push(watchedPositions[i]);
-			}
-		}
+		let movablePositions = this.filterOutPositionsOccupiedByAllies(watchedPositions, board);
+		movablePositions = this.filterOutPinnedPositions(movablePositions, board);
+
 		if (!this.hasMoved) {
 			let possiblyKingsideRook = board.getPieceAtPosition({x: this.position.x + 3, y: this.position.y});
 			let possiblyQueensideRook = board.getPieceAtPosition({x: this.position.x - 4, y: this.position.y});

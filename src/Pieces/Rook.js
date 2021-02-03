@@ -59,13 +59,8 @@ export class Rook extends Piece {
 
 	getMovablePositions(board) {
 		let watchedPositions = this.getWatchedPositions(board);
-		let movablePositions = [];
-		for (let i = 0; i < watchedPositions.length; i++) {
-			if (!board.isPositionOccupiedByAlly(this.color, watchedPositions[i])) {
-				movablePositions.push(watchedPositions[i]);
-			}
-		}
-		movablePositions = this.filterOutPinnedPositions(movablePositions, board);
+		let movablePositions = this.filterOutPositionsOccupiedByAllies(watchedPositions, board);
+		movablePositions = this.filterOutPinnedPositions(movablePositions, board);;
 
 		return movablePositions;
 	}

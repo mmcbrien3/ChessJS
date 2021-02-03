@@ -15,10 +15,6 @@ export class Piece {
 
 	getAttackablePositions() {}
 
-	canJump() {
-		return false;
-	}
-
 	getStringRepresentation() {
 		return "U";
 	}
@@ -30,6 +26,16 @@ export class Piece {
 				finalPositions.push(pos);
 			}
 		})
+		return finalPositions;
+	}
+
+	filterOutPositionsOccupiedByAllies(positions, board) {
+		let finalPositions = [];
+		positions.forEach(pos => {
+			if (!board.isPositionOccupiedByAlly(this, pos)) {
+				finalPositions.push(pos);
+			}
+		});
 		return finalPositions;
 	}
 }
