@@ -54,6 +54,34 @@ export class King extends Piece {
 				movablePositions.push(watchedPositions[i]);
 			}
 		}
+		if (!this.hasMoved) {
+			let possiblyKingsideRook = board.getPieceAtPosition({x: this.position.x + 3, y: this.position.y});
+			let possiblyQueensideRook = board.getPieceAtPosition({x: this.position.x - 4, y: this.position.y});
+
+			if (possiblyKingsideRook != null && possiblyKingsideRook.getStringRepresentation() === 'R') {
+				let hasRookMoved = possiblyKingsideRook.hasMoved;
+				let arePositionsFree = board.getPieceAtPosition({x: this.position.x + 1, y: this.position.y}) === null && 
+										board.getPieceAtPosition({x: this.position.x + 2, y: this.position.y}) === null;
+				let arePositionsInCheck = board.isKingInCheck(this.color) ||
+											board.isMyKingInCheckWithMove(this, {x: this.position.x + 1, y: this.position.y}) ||
+											board.isMyKingInCheckWithMove(this, {x: this.position.x + 2, y: this.position.y});
+				if (!hasRookMoved && arePositionsFree && !arePositionsInCheck) {
+					movablePositions.push({x: this.position.x + 2, y: this.position.y});
+				}
+			}
+			if (possiblyQueensideRook != null && possiblyQueensideRook.getStringRepresentation() === 'R') {
+				let hasRookMoved = possiblyQueensideRook.hasMoved;
+				let arePositionsFree = board.getPieceAtPosition({x: this.position.x - 1, y: this.position.y}) === null && 
+										board.getPieceAtPosition({x: this.position.x - 2, y: this.position.y}) === null &&
+										board.getPieceAtPosition({x: this.position.x - 3, y: this.position.y}) === null;
+				let arePositionsInCheck = board.isKingInCheck(this.color) ||
+											board.isMyKingInCheckWithMove(this, {x: this.position.x - 1, y: this.position.y}) ||
+											board.isMyKingInCheckWithMove(this, {x: this.position.x - 2, y: this.position.y});
+				if (!hasRookMoved && arePositionsFree && !arePositionsInCheck) {
+					movablePositions.push({x: this.position.x - 2, y: this.position.y});
+				}
+			}
+		}
 		return movablePositions;
 	}
 

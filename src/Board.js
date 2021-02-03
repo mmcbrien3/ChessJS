@@ -94,24 +94,12 @@ export class Board {
 		let currentPosition = piece.position;
 		let pieceAtNewPosition = this.getPieceAtPosition(newPosition);
 
-		let foeColor = Colors.WHITE;
-		if (piece.color === Colors.WHITE) {
-			foeColor = Colors.BLACK;
-		}
 		
 		this.grid[piece.position.y][piece.position.x] = null;
 		piece.position = newPosition;
 		this.placePiece(piece);
-		let kingPos = this.getKingPosOfColor(piece.color);
-
-		let foePieces = this.getAllPiecesOfColor(foeColor);
-		let positionsWatchedByFoes = [];
-		foePieces.forEach(piece => positionsWatchedByFoes.push(...piece.getWatchedPositions(this)));
-
-		if (positionsWatchedByFoes.some(item => JSON.stringify(item) === JSON.stringify(kingPos))) {
-			isKingInCheck = true;
-		}
-
+		
+		let isMyKingInCheck = this.isKingInCheck(piece.color);
 		piece.position = currentPosition;
 		this.grid[piece.position.y][piece.position.x] = piece;
 		if (pieceAtNewPosition != null) {
@@ -119,8 +107,22 @@ export class Board {
 		} else {
 			this.grid[newPosition.y][newPosition.x] = null;
 		}
+		return isMyKingInCheck;
+	}
 
-		return isKingInCheck;
+	isKingInCheck(color) {
+		let foeColor = Colors.WHITE;
+		if (color === Colors.WHITE) {
+			foeColor = Colors.BLACK;
+		}
+		let kingPos = this.getKingPosOfColor(color);
+
+		let foePieces = this.getAllPiecesOfColor(foeColor);
+		let positionsWatchedByFoes = [];
+		foePieces.forEach(piece => positionsWatchedByFoes.push(...piece.getWatchedPositions(this)));
+
+		return positionsWatchedByFoes.some(item => JSON.stringify(item) === JSON.stringify(kingPos));
+
 	}
 
 	getKingPosOfColor(color) {
