@@ -35,13 +35,13 @@ export class Piece {
 	}
 
 	filterOutPositionsOccupiedByAllies(positions, board) {
-		let finalPositions = [];
-		positions.forEach(pos => {
-			if (!board.isPositionOccupiedByAlly(this, pos)) {
-				finalPositions.push(pos);
+		let movablePositions = [];
+		for (let i = 0; i < positions.length; i++) {
+			if (!board.isPositionOccupiedByAlly(this.color, positions[i])) {
+				movablePositions.push(positions[i]);
 			}
-		});
-		return finalPositions;
+		}
+		return movablePositions;
 	}
 }
 

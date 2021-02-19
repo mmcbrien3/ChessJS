@@ -64,7 +64,7 @@ export class Bishop extends Piece {
 		let watchedPositions = this.getWatchedPositions(board);
 		let movablePositions = this.filterOutPositionsOccupiedByAllies(watchedPositions, board);
 		movablePositions = this.filterOutPinnedPositions(movablePositions, board);
-		
+
 		return movablePositions;
 	}
 
