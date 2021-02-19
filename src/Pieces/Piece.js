@@ -4,6 +4,11 @@ export class Piece {
 		this.position = position;
 		this.color = color;
 		this.hasMoved = false;
+		this.phaserSprite = null;
+	}
+
+	setPhaserSprite(phaserSprite) {
+		this.phaserSprite = phaserSprite;
 	}
 
 	moveTo(position) {

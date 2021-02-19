@@ -7,9 +7,6 @@ import { Bishop } from './Pieces/Bishop.js'
 import { Queen } from './Pieces/Queen.js'
 import { King } from './Pieces/King.js'
 
-import promptSync from 'prompt-sync';
-const prompt = promptSync();
-
 export class GameAdministrator {
 	
 	constructor() {
@@ -19,7 +16,7 @@ export class GameAdministrator {
 	}
 
 	makeMove(piece, newPosition) {
-		this.board.movePiece(piece, newPosition);
+		return this.board.movePiece(piece, newPosition);
 	}
 
 	validateMoveIsLegal(piece, newPosition) {

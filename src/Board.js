@@ -28,9 +28,13 @@ export class Board {
 	}
 
 	movePiece(piece, newPosition) {
+		let pieceAtOldPosition = this.getPieceAtPosition(newPosition);
+		console.log(pieceAtOldPosition)
 		this.grid[piece.position.y][piece.position.x] = null;
 		piece.moveTo(newPosition);
 		this.placePiece(piece);
+
+		return pieceAtOldPosition;
 
 		//TODO: implement rook castling move
 	}
