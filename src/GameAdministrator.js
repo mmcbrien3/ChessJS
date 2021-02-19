@@ -16,6 +16,7 @@ export class GameAdministrator {
 	}
 
 	makeMove(piece, newPosition) {
+		this.changeCurrentPlayer();
 		return this.board.movePiece(piece, newPosition);
 	}
 

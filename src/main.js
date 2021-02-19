@@ -246,8 +246,10 @@ function clickListener(pointer, localX, localY, event) {
 		selectedPiece = null;
 		return;
 	}
-	selectedPiece = gameAdmin.board.getPieceAtPosition(pos);
-
+	let clickedPiece = gameAdmin.board.getPieceAtPosition(pos);
+	if (clickedPiece.color === gameAdmin.currentPlayerColor) {
+		selectedPiece = clickedPiece;
+	}
 	if (selectedPiece != null) {
 		console.log(selectedPiece);
 		drawPossibleMoves(this, selectedPiece, gameAdmin);
