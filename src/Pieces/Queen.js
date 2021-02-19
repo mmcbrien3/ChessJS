@@ -125,24 +125,10 @@ export class Queen extends Piece {
 
 	getMovablePositions(board) {
 		let watchedPositions = this.getWatchedPositions(board);
-		let movablePositions = [];
-		for (let i = 0; i < watchedPositions.length; i++) {
-			if (!board.isPositionOccupiedByAlly(this.color, watchedPositions[i])) {
-				movablePositions.push(watchedPositions[i]);
-			}
-		}
-		return movablePositions;
-	}
+		let movablePositions = this.filterOutPositionsOccupiedByAllies(watchedPositions, board);
+		movablePositions = this.filterOutPinnedPositions(movablePositions, board);
 
-	getAttackablePositions(board) {
-		ps = [];
-		if (color == Colors.BLACK) {
-			addToListIfOnBoard(board, ps, {x: this.position.x- 1, y: this.position.y + 1});
-			addToListIfOnBoard(board, ps, {x: this.position.x + 1, y: this.position.y + 1});
-		} else {
-			addToListIfOnBoard(board, ps, {x: this.position.x - 1, y: this.position.y - 1});
-			addToListIfOnBoard(board, ps, {x: this.position.x + 1, y: this.position.y - 1});
-		}
+		return movablePositions;
 	}
 
 	getStringRepresentation() {

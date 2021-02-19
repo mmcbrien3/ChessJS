@@ -18,8 +18,6 @@ export class Piece {
 
 	getMovablePositions() {}
 
-	getAttackablePositions() {}
-
 	getStringRepresentation() {
 		return "U";
 	}
