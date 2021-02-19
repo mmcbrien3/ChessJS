@@ -2,7 +2,7 @@ import { GameAdministratorBrowser } from './GameAdministratorBrowser.js';
 
 const scaleRatio = window.devicePixelRatio / 3;
 console.log(window.devicePixelRatio);
-const assetsFolder = "../assets/final_assets/";
+const assetsFolder = "assets/final_assets/";
 const viewWidth = window.innerWidth;
 const viewHeight = window.innerHeight;
 
