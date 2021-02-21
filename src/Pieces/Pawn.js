@@ -47,6 +47,10 @@ export class Pawn extends Piece {
 				ps.push(possiblePosition);
 			}
 		}
+		let enPassantSquare = this.getEnPassantSquare(board);
+		if (enPassantSquare != null) {
+			ps.push(enPassantSquare);
+		}
 
 		ps = this.filterOutPinnedPositions(ps, board);
 		return ps;
@@ -79,6 +83,46 @@ export class Pawn extends Piece {
 			}
 		}
 		return ps;
+	}
+
+	getEnPassantSquare(board) {
+		let previousMovePiece = board.previousMove.piece;
+		let previousMoveOldPosition = board.previousMove.oldPosition;
+
+		if (previousMovePiece == null) {
+			return null;
+		}
+
+		if (previousMovePiece.color === this.color) {
+			return null;
+		}
+
+		if (previousMovePiece.getStringRepresentation() !== "p") {
+			return null;
+		}
+
+		if (Math.abs(previousMoveOldPosition.y - previousMovePiece.position.y) != 2) {
+			return null;
+		}
+
+		let pieceToLeft = board.getPieceAtPosition({x: this.position.x - 1, y: this.position.y});
+		let pieceToRight = board.getPieceAtPosition({x: this.position.x + 1, y: this.position.y});
+
+		if (pieceToLeft == previousMovePiece) {
+			if (this.color === Colors.BLACK) {
+				return {x: this.position.x - 1, y: this.position.y + 1};
+			} else {
+				return {x: this.position.x - 1, y: this.position.y - 1};
+			}
+		}
+
+		if (pieceToRight == previousMovePiece) {
+			if (this.color === Colors.BLACK) {
+				return {x: this.position.x + 1, y: this.position.y + 1};
+			} else {
+				return {x: this.position.x + 1, y: this.position.y - 1};
+			}
+		}
 	}
 
 	getStringRepresentation() {

@@ -12,6 +12,8 @@ export class Board {
 				this.grid[y].push(null);
 			}
 		}
+
+		this.previousMove = {piece: null, oldPosition: null};
 	}
 
 	getAllPieces() {
@@ -27,42 +29,58 @@ export class Board {
 		return pieces;
 	}
 
+	/*
+	 * Move for real
+	*/
 	movePiece(piece, newPosition) {
 
+		this.previousMove = {piece: piece, oldPosition: piece.position};
+
 		let isCastlingMove = this.checkForCastling(piece, newPosition);
-		let pieceAtOldPosition = this.getPieceAtPosition(newPosition);
-		console.log(pieceAtOldPosition)
+		let isEnPassantMove = this.checkForEnPassant(piece, newPosition);
+		let positionToDestroy;
+		if (isEnPassantMove) {
+			positionToDestroy = {x: newPosition.x, y: piece.position.y};
+		} else {
+			positionToDestroy = newPosition;
+		}
+		let pieceToDestroy = this.getPieceAtPosition(positionToDestroy);
 		this.grid[piece.position.y][piece.position.x] = null;
+		this.grid[positionToDestroy.y][positionToDestroy.x] = null;
 		piece.moveTo(newPosition);
 		this.placePiece(piece);
 
 		if (isCastlingMove) {
-			console.log("GOING TO CASTLE");
 			let newRookXPos = 5;
 			let oldRookXPos = 7;
-			//check queenside castle()
+			//check queenside castle
 			if (newPosition.x == 2) {
 				newRookXPos = 3;
 				oldRookXPos = 0;
 			}
 			let oldRookPosition = {x: oldRookXPos, y: newPosition.y};
 			let newRookPosition = {x: newRookXPos, y: newPosition.y};
-			console.log("Castling to:");
 			console.log(newRookPosition);
 			let rook = this.getPieceAtPosition(oldRookPosition);
-			console.log(rook);
 			this.movePiece(rook, newRookPosition);
 		}
 
-		return pieceAtOldPosition;
 
-		//TODO: implement rook castling move
+		return pieceToDestroy;
 	}
 
 	checkForCastling(piece, newPosition) {
 		let isKingMove = piece.getStringRepresentation() === 'K';
 		let isKingMoveTwoSquares = Math.abs(newPosition.x - piece.position.x) == 2;
 		return isKingMove && isKingMoveTwoSquares;
+	}
+
+	checkForEnPassant(piece, newPosition) {
+		let isPawnMove = piece.getStringRepresentation() === 'p';
+		let pieceAtNewPosition = this.getPieceAtPosition(newPosition);
+		let isPawnAttack = piece.position.x != newPosition.x;
+
+		return isPawnMove && isPawnAttack && pieceAtNewPosition == null;
 	}
 
 	placePiece(piece) {
