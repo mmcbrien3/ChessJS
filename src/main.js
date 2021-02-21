@@ -233,6 +233,20 @@ function performMove(pieceToMove, newPosition) {
 	if (pieceDestroyed != null) {
 		pieceDestroyed.phaserSprite.destroy();
 	}
+
+	//this function is called specifically for castling,
+	//rook position needs to be updated on phaser side, but it is performed silently
+	//by the board class.
+	updateAllPhaserPositions();
+}
+
+function updateAllPhaserPositions() {
+	let pieces = gameAdmin.board.getAllPieces();
+	pieces.forEach(p => {
+		let currentPos = p.position;
+		let phaserCoords = convertPosToPhaserCoords(currentPos);
+		p.phaserSprite.setPosition(phaserCoords[0], phaserCoords[1]);
+	})
 }
 
 function clickListener(pointer, localX, localY, event) {
@@ -247,6 +261,9 @@ function clickListener(pointer, localX, localY, event) {
 		return;
 	}
 	let clickedPiece = gameAdmin.board.getPieceAtPosition(pos);
+	if (clickedPiece == null) {
+		return;
+	}
 	if (clickedPiece.color === gameAdmin.currentPlayerColor) {
 		selectedPiece = clickedPiece;
 	}

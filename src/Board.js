@@ -28,15 +28,41 @@ export class Board {
 	}
 
 	movePiece(piece, newPosition) {
+
+		let isCastlingMove = this.checkForCastling(piece, newPosition);
 		let pieceAtOldPosition = this.getPieceAtPosition(newPosition);
 		console.log(pieceAtOldPosition)
 		this.grid[piece.position.y][piece.position.x] = null;
 		piece.moveTo(newPosition);
 		this.placePiece(piece);
 
+		if (isCastlingMove) {
+			console.log("GOING TO CASTLE");
+			let newRookXPos = 5;
+			let oldRookXPos = 7;
+			//check queenside castle()
+			if (newPosition.x == 2) {
+				newRookXPos = 3;
+				oldRookXPos = 0;
+			}
+			let oldRookPosition = {x: oldRookXPos, y: newPosition.y};
+			let newRookPosition = {x: newRookXPos, y: newPosition.y};
+			console.log("Castling to:");
+			console.log(newRookPosition);
+			let rook = this.getPieceAtPosition(oldRookPosition);
+			console.log(rook);
+			this.movePiece(rook, newRookPosition);
+		}
+
 		return pieceAtOldPosition;
 
 		//TODO: implement rook castling move
+	}
+
+	checkForCastling(piece, newPosition) {
+		let isKingMove = piece.getStringRepresentation() === 'K';
+		let isKingMoveTwoSquares = Math.abs(newPosition.x - piece.position.x) == 2;
+		return isKingMove && isKingMoveTwoSquares;
 	}
 
 	placePiece(piece) {
