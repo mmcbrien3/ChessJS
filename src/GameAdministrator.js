@@ -17,7 +17,13 @@ export class GameAdministrator {
 
 	makeMove(piece, newPosition) {
 		this.changeCurrentPlayer();
-		return this.board.movePiece(piece, newPosition);
+		let isPromotion = this.checkForPromotion(piece, newPosition);
+		let pieceToDestroy = this.board.movePiece(piece, newPosition);
+
+		if (isPromotion) {
+			this.board.placePiece(new Queen(newPosition, piece.color));
+		}
+		return pieceToDestroy;
 	}
 
 	validateMoveIsLegal(piece, newPosition) {
@@ -27,6 +33,12 @@ export class GameAdministrator {
 
 	checkForEndOfGame() {
 		return false;
+	}
+
+	checkForPromotion(piece, newPosition) {
+		let isPawnMove = piece.getStringRepresentation() === 'p';
+		let isFinalRank = newPosition.y == (NUM_RANKS - 1) || newPosition.y == 0;
+		return isPawnMove && isFinalRank;
 	}
 
 	changeCurrentPlayer() {
