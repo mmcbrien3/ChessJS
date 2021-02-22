@@ -207,6 +207,7 @@ function preload() {
     this.load.image('bRook', [assetsFolder + 'black_rook.png']);
     this.load.image('bBishop', [assetsFolder + 'black_bishop.png']);
     this.load.image('bKnight', [assetsFolder + 'black_knight.png']);
+    this.load.image('gameOver', [assetsFolder + 'gameOver.png']);
 
     phaserObject = this;
 }
@@ -247,12 +248,17 @@ function performMove(pieceToMove, newPosition) {
 		}
 		let newQueen = phaserObject.physics.add.sprite(phaserPos[0], phaserPos[1], colorIndicator + 'Queen').setInteractive();
 		gameAdmin.board.getPieceAtPosition(newPosition).setPhaserSprite(newQueen);
+
 	}
 
 	//this function is called specifically for castling,
 	//rook position needs to be updated on phaser side, but it is performed silently
 	//by the board class.
 	updateAllPhaserPositions();
+
+	if (gameAdmin.checkForEndOfGame()) {
+		phaserObject.physics.add.sprite(DEFAULT_BOARD_SIZE / 2, DEFAULT_BOARD_SIZE / 2, 'gameOver');
+	}
 }
 
 function updateAllPhaserPositions() {

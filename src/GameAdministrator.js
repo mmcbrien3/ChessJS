@@ -32,7 +32,19 @@ export class GameAdministrator {
 	}
 
 	checkForEndOfGame() {
-		return false;
+		let pieces = this.board.getAllPiecesOfColor(this.currentPlayerColor);
+		let allMoves = [];
+		pieces.forEach(p => {
+			let pieceMoves = p.getMovablePositions(this.board);
+			allMoves = allMoves.concat(...pieceMoves);
+			console.log(allMoves);
+		})
+		console.log(allMoves);
+		let isGameOver = allMoves.length == 0;
+		if (isGameOver) {
+			console.log("GAME OVER");
+		}
+		return isGameOver;
 	}
 
 	checkForPromotion(piece, newPosition) {
