@@ -10,7 +10,7 @@ const viewHeight = window.innerHeight;
 
 let DEFAULT_SQUARE_SIZE = 64;
 let DEFAULT_BOARD_SIZE = DEFAULT_SQUARE_SIZE * 8;
-
+let BUFFER_SIZE = 32;
 let gameAdmin = new GameAdministratorBrowser();
 let selectedPiece = null;
 
@@ -19,7 +19,7 @@ let displaySide = Colors.BLACK;
 var config = {
     type: Phaser.Canvas,
     width: DEFAULT_BOARD_SIZE,
-    height: DEFAULT_BOARD_SIZE,
+    height: DEFAULT_BOARD_SIZE + BUFFER_SIZE,
     physics: {
         default: 'arcade',
         arcade: {
@@ -205,23 +205,24 @@ function drawPossibleMoves(phaser, selectedPiece, admin) {
 function preload() {
     this.load.image('lightSquare', [assetsFolder + 'light_square.png']);
     this.load.image('darkSquare', [assetsFolder + 'dark_square.png']);
-    this.load.image('wPawn', [assetsFolder + 'white_pawn.png']);
-    this.load.image('bPawn', [assetsFolder + 'black_pawn.png']);
-    this.load.image('indicator', [assetsFolder + 'possible_move.png']);
 
+    this.load.image('wPawn', [assetsFolder + 'white_pawn.png']);
     this.load.image('wKing', [assetsFolder + 'white_king.png']);
     this.load.image('wQueen', [assetsFolder + 'white_queen.png']);
     this.load.image('wRook', [assetsFolder + 'white_rook.png']);
     this.load.image('wBishop', [assetsFolder + 'white_bishop.png']);
     this.load.image('wKnight', [assetsFolder + 'white_knight.png']);
 
+    this.load.image('bPawn', [assetsFolder + 'black_pawn.png']);
     this.load.image('bKing', [assetsFolder + 'black_king.png']);
     this.load.image('bQueen', [assetsFolder + 'black_queen.png']);
     this.load.image('bRook', [assetsFolder + 'black_rook.png']);
     this.load.image('bBishop', [assetsFolder + 'black_bishop.png']);
     this.load.image('bKnight', [assetsFolder + 'black_knight.png']);
-    this.load.image('gameOver', [assetsFolder + 'gameOver.png']);
 
+    this.load.image('indicator', [assetsFolder + 'possible_move.png']);
+    this.load.image('gameOver', [assetsFolder + 'gameOver.png']);
+    this.load.image('perspective', [assetsFolder + 'switch_perspective_button.png']);
     phaserObject = this;
 }
 
@@ -234,12 +235,26 @@ function create() {
 	createPhaserSprites(this, gameAdmin);
 	this.possibleMoves = [];
 	this.input.on('pointerdown', clickListener, this);
+
+	this.add.image(DEFAULT_BOARD_SIZE - DEFAULT_SQUARE_SIZE / 2, 
+		DEFAULT_BOARD_SIZE + BUFFER_SIZE / 2,
+		'perspective').setInteractive().on('pointerdown', () => switchPerspective());
 }
 
 /**
  * PHASER FUNCTION
  */
 function update() {
+
+}
+
+function switchPerspective() {
+	if (displaySide == Colors.WHITE) {
+		displaySide = Colors.BLACK;
+	} else {
+		displaySide = Colors.WHITE;
+	}
+	updateAllPhaserPositions();
 
 }
 
