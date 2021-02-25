@@ -9,10 +9,10 @@ import { King } from './Pieces/King.js'
 
 export class GameAdministrator {
 	
-	constructor() {
+	constructor(firstPlayerColor=Colors.WHITE) {
 		this.board = new Board();
 		this.setupAllPieces();
-		this.currentPlayerColor = Colors.WHITE;
+		this.currentPlayerColor = firstPlayerColor;
 	}
 
 	makeMove(piece, newPosition) {

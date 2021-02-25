@@ -14,6 +14,8 @@ let DEFAULT_BOARD_SIZE = DEFAULT_SQUARE_SIZE * 8;
 let gameAdmin = new GameAdministratorBrowser();
 let selectedPiece = null;
 
+let displaySide = Colors.BLACK;
+
 var config = {
     type: Phaser.Canvas,
     width: DEFAULT_BOARD_SIZE,
@@ -58,11 +60,22 @@ function drawEmptyBoard(phaser) {
 
 
 function convertPosToPhaserCoords(pos) {
-	return [pos.x * DEFAULT_SQUARE_SIZE + DEFAULT_SQUARE_SIZE / 2, pos.y * DEFAULT_SQUARE_SIZE + DEFAULT_SQUARE_SIZE / 2];
+	let displaySideWhiteCoords = [pos.x * DEFAULT_SQUARE_SIZE + DEFAULT_SQUARE_SIZE / 2, pos.y * DEFAULT_SQUARE_SIZE + DEFAULT_SQUARE_SIZE / 2];
+	if (displaySide == Colors.WHITE) {
+		return displaySideWhiteCoords;
+	} else {
+		return [DEFAULT_BOARD_SIZE - displaySideWhiteCoords[0], DEFAULT_BOARD_SIZE - displaySideWhiteCoords[1]];
+	}
 }
 
 function convertPhaserCoordsToPos(x, y) {
-	return {x: Math.floor(x / DEFAULT_SQUARE_SIZE), y: Math.floor(y / DEFAULT_SQUARE_SIZE)};
+	let displaySideWhitePos = {x: Math.floor(x / DEFAULT_SQUARE_SIZE), y: Math.floor(y / DEFAULT_SQUARE_SIZE)};
+	if (displaySide == Colors.WHITE) {
+		return displaySideWhitePos;
+	} else {
+		console.log(displaySideWhitePos)
+		return {x: 7 - displaySideWhitePos.x, y: 7 - displaySideWhitePos.y};
+	}
 }
 
 function createPhaserSprites(phaser, admin) {
